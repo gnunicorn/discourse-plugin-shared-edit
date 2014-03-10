@@ -1,24 +1,16 @@
 <div class="modal-body">
-  {{#if error}}
-    <div class="alert alert-error">
-      <button class="close" data-dismiss="alert">×</button>
-      {{i18n topic.invite_reply.error}}
-    </div>
-  {{/if}}
-
-  {{#if finished}}
-    {{{successMessage}}}
+  <label>Shared with</label>
+  {{#if loading}}
+    <span>{{ i18n loading }}</span>
   {{else}}
-
-    <label>{{inviteInstructions}}</label>
-    {{textField value=email placeholderKey="topic.invite_reply.email_placeholder"}}
+    {{userSelector allowAny=true usernames=usernames class="span10" excludeCurrentUser="true" include_groups="true" placeholderKey="topic.invite_private.email_or_username_placeholder"}}
   {{/if}}
 </div>
 <div class="modal-footer">
   {{#if finished}}
     <button class='btn btn-primary' {{action closeModal}}>{{i18n close}}</button>
   {{else}}
-    <button class='btn btn-primary' {{bind-attr disabled="disabled"}} {{action createInvite}}>{{buttonTitle}}</button>
+    <button class='btn btn-primary' {{action save}}>{{i18n save}}</button>
   {{/if}}
 
 </div>

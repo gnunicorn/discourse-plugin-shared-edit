@@ -21,7 +21,7 @@ module SharedEditGuardian
 
   def has_shared_edit(post)
     editors = ::PluginStore.get("shared-edit", "#{post.id}_editors")
-    editors and editors.include? @user.id
+    editors and editors.include? @user.username
   end
 
   def can_edit_post?(post)
@@ -46,6 +46,8 @@ after_initialize do
 
     class SharedEditController < ActionController::Base
       include CurrentUser
+
+      include_root_in_json = false
 
       before_filter :can_change_share_edit?
 
@@ -72,24 +74,17 @@ after_initialize do
       end
 
       def index
-        editors = ::PluginStore.get("shared-edit", "#{@post.id}_editors")
-
-        users = User.where(id: editors).reject(&:blank?)
-
-        user_fields = [:id, :username, :use_uploaded_avatar, :upload_avatar_template, :uploaded_avatar_id]
-        user_fields << :name if SiteSetting.enable_names?
-
-        render json: users.as_json(only: user_fields, methods: :avatar_template)
+        render json: ::PluginStore.get("shared-edit", "#{@post.id}_editors") || []
       end
 
       def set
-        user_ids =
-          if !params[:user_ids]
+        usernames =
+          if !params[:usernames]
             []
           else
-            params[:user_ids].split(",").map {|x| x.to_i}
+            params[:usernames].split(",")
           end
-        ::PluginStore.set("shared-edit", "#{@post.id}_editors", user_ids)
+        ::PluginStore.set("shared-edit", "#{@post.id}_editors", usernames)
         render json: true
       end
     end
