@@ -1,12 +1,3 @@
-/**
-  The modal for sharing edit control with other users
-
-  @class ShareEditsController
-  @extends Discourse.Controller
-  @namespace Discourse
-  @uses Discourse.ModalFunctionality
-  @module Discourse
-**/
 
 Discourse.SharedEditView = Discourse.ModalBodyView.extend({
 
