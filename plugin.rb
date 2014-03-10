@@ -89,7 +89,6 @@ after_initialize do
           else
             params[:user_ids].split(",").map {|x| x.to_i}
           end
-        puts user_ids
         ::PluginStore.set("shared-edit", "#{@post.id}_editors", user_ids)
         render json: true
       end
