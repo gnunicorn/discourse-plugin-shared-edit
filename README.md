@@ -22,6 +22,10 @@ Which of course also works with group-aliases as you'd expect:
 
 ![With group](https://raw.github.com/ligthyear/discourse-plugin-shared-edit/master/docs/adding-group.png)
 
+If you configured the site-settings "shared edits allow trust levels" (under "uncategorized"), you will also see a combobox allowing one to select a trust_level that automatically is allowed to edit:
+
+![With trust levels](https://raw.github.com/ligthyear/discourse-plugin-shared-edit/master/docs/popup-with-trust-levels.png)
+
 Once you are done, press "save changes" to commit this state to the datasbase. The next time any of them visits your post, they'll also have the possibility to edit this specific post (indicated by the pencil-icon-button in the post menu bar).
 
 ## Installation
@@ -39,7 +43,23 @@ Now add `sharedEdit` into the `post_menu` setting via the Admin-Interface, save 
 
 Enjoy.
 
+## Configuration
+
+This plugin comes with to configuration options, to be found under the `uncategorized` section in the admin SiteSettings:
+
+![With trust levels](https://raw.github.com/ligthyear/discourse-plugin-shared-edit/master/docs/settings.png)
+
+They work as follows:
+
+ - **shared edits allow trust levels**: if selected allows users to share the edit permission based on trust levels
+ - **shared edits allow trust levels default**: the default trust level for posts without that specification. Default is 99 (only admins), the trust_levels work respectively (0-4). By setting this too 0, you essentially create an always-editable-for-everyone-wiki. Use with caution.
+
+
 ## Changelog:
+
+ * 2014-04-20:
+   - fix language issues (for english)
+   - add optional share-by-trust-level feature
 
  * 2014-03-11
    - adding documentation and licence
@@ -52,7 +72,6 @@ Enjoy.
 (in order of importance)
 
  * the title of the modal doesn't pick up properly all the time
- * there seems to be some i18n problems
 
 ### other Limitations:
 
