@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    shared_edits_allow_trust_levels: "Allow authors to specify configure trust level based edit-sharing"
+    shared_edits_default_trust_levels: "Default Trust level all articles are shared with"

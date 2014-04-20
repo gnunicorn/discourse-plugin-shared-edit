@@ -1,9 +1,21 @@
-<div class="modal-body">
-  <label>{{i18n "shared with"}}</label>
-  {{#if loading}}
-    <span>{{ i18n loading }}</span>
-  {{else}}
-    {{userSelector allowAny=true usernames=usernames class="span10" excludeCurrentUser="true" include_groups="true" placeholderKey="composer.users_placeholder"}}
+<div class="modal-body" style="overflow: visible">
+  <div class="control-group">
+      <label>{{i18n shared_edit.title}}</label>
+      {{#if loading}}
+        <span>{{ i18n loading }}</span>
+      {{else}}
+        {{userSelector allowAny=true usernames=usernames class="span10" excludeCurrentUser="true" include_groups="true" placeholderKey="composer.users_placeholder"}}
+      {{/if}}
+  </div>
+
+  {{#if Discourse.SiteSettings.shared_edits_allow_trust_levels }}
+
+      <div class="control-group">
+        <label class="control-label">{{i18n shared_edit.trust_title}}</label>
+        <div class="controls">
+          {{combobox valueAttribute="value" value=controller.trust_level content=controller.trustLevelOptions}}
+        </div>
+      </div>
   {{/if}}
 </div>
 <div class="modal-footer">

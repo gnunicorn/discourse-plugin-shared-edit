@@ -21,7 +21,14 @@ module SharedEditGuardian
 
   def has_shared_edit(post)
     editors = ::PluginStore.get("shared-edit", "#{post.id}_editors")
-    editors and editors.include? @user.username
+    return true if editors and editors.include? @user.username
+    if SiteSetting.shared_edits_allow_trust_levels
+      trust_level = ::PluginStore.get("shared-edit", "#{post.id}_trust_level") || SiteSetting.shared_edits_default_trust_levels
+      # admins and mods are handeled by the default can_edit_post
+      # ergo in these cases this wouldn't be called. We can take
+      # care of the trust level only here
+      user.trust_level >= trust_level
+    end
   end
 
   def can_edit_post?(post)
@@ -74,7 +81,9 @@ after_initialize do
       end
 
       def index
-        render json: ::PluginStore.get("shared-edit", "#{@post.id}_editors") || []
+        editors = ::PluginStore.get("shared-edit", "#{@post.id}_editors") || []
+        trust_level = ::PluginStore.get("shared-edit", "#{@post.id}_trust_level") || SiteSetting.shared_edits_default_trust_levels
+        render json: {:usernames => editors, :trust_level => trust_level}
       end
 
       def set
@@ -85,6 +94,10 @@ after_initialize do
             params[:usernames].split(",")
           end
         ::PluginStore.set("shared-edit", "#{@post.id}_editors", usernames)
+        if SiteSetting.shared_edits_allow_trust_levels
+          trust_level = params[:trust_level].to_i
+          ::PluginStore.set("shared-edit", "#{@post.id}_trust_level", trust_level)
+        end
         render json: true
       end
     end

@@ -1,0 +1,12 @@
+en:
+  js:
+    shared_edit:
+      trust_level_options:
+        mods_and_admins: "Admins and Moderators"
+        trust_level_4: "Elder (4) and higher"
+        trust_level_3: "Leader (3) and higher"
+        trust_level_2: "Regular (2) and higher"
+        trust_level_1: "Basic (1) and higher"
+        everyone: "Everyone with account"
+      title: "Shared Editing Permission with"
+      trust_title: "and as trust worthy as"
