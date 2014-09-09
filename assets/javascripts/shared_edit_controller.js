@@ -37,7 +37,6 @@ Discourse.SharedEditController = Discourse.ObjectController.extend(Discourse.Mod
       type: "GET",
       data: {post_id: this.get('model.id')}
     }).then(function(newJSON) {
-      console.log(newJSON);
       this.set("usernames", newJSON.usernames || []);
       this.set("trust_level", newJSON.trust_level || -1);
       this.set("loading", false);
