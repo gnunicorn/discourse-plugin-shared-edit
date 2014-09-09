@@ -5,3 +5,8 @@ uncategorized:
   shared_edits_default_trust_levels:
     default: 99
     client: false
+
+basic:
+  post_menu:
+    choices:
+      - sharedEdit
